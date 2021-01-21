@@ -3,9 +3,11 @@ const router = express.Router();
 
 // Subrouters;
 const studentsRouter = require('./students');
+const campusesRouter = require('./campuses');
 
 // Mount our subrouters to assemble our apiRouter;
 router.use('/students', studentsRouter);
+router.use('/campuses', campusesRouter);
 
 // Error handling middleware;
 router.use((req, res, next) => {
