@@ -28,7 +28,7 @@ const syncDatabase = () => {
 	if (process.env.NODE_ENV === 'production') {
 		db.sync();
 	} else {
-		db.sync()
+		db.sync({ force: true })
 			.then(() => seedDatabase())
 			.catch((err) => {
 				console.log('err', err);
@@ -84,9 +84,7 @@ const bootApp = async () => {
 
 // Main function invocation;
 bootApp();
-app.listen(process.env.DATABASE_PORT || 8080, () =>
-	console.log(`Listening on port: ${process.env.DATABASE_PORT || 8080}`)
-);
+app.listen(8080, () => console.log(`Listening on port: ${8080}`));
 
 // Export our app, so that it can be imported in the www file;
 module.exports = app;
