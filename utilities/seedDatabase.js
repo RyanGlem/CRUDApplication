@@ -1,23 +1,19 @@
-const { Player } = require('../database/models');
+const { Student } = require('../database/models');
 
 const seedDatabase = async () => {
-  await Promise.all([
-    Player.create({
-      firstName: "Kyrie",
-      lastName: "Irving",
-      jerseyNumber: 11
-    }),
-    Player.create({
-      firstName: "LeBron",
-      lastName: "James",
-      jerseyNumber: 23
-    }),
-    Player.create({
-      firstName: "Luka",
-      lastName: "Doncic",
-      jerseyNumber: 77
-    })
-  ]);
-}
+	try {
+		await Promise.all([
+			Student.create({
+				firstName: 'Kyrie',
+				lastName: 'Irving',
+				email: 'foo@bar.com',
+				imageUrl: 'https://scx2.b-cdn.net/gfx/news/2018/83-researchersi.jpg',
+				gpa: 3.0,
+			}),
+		]);
+	} catch (error) {
+		console.log(error);
+	}
+};
 
 module.exports = seedDatabase;
