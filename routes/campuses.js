@@ -42,16 +42,24 @@ router.post('/', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-	Campus.destroy({
+	Campus.find({
 		where: {
 			id: req.params.id,
 		},
 	})
-		.then((campus) => {
-			res.status(200);
+		.then((result) => {
+			Campus.destroy({
+				where: {
+					id: req.params.id,
+				},
+			})
+				.then(() => {
+					res.json(result);
+				})
+				.catch((err) => {
+					next(err);
+				});
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch((err) => next(err));
 });
 module.exports = router;
