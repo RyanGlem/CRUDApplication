@@ -5,7 +5,7 @@ const { Student, Campus } = require('../database/models');
 router.get('/', function (req, res, next) {
 	Student.findAll()
 		.then((students) => res.json(students))
-		.catch((err) => console.log(err));
+		.catch((err) => next(err));
 });
 
 router.get('/:id', (req, res, next) => {
@@ -20,7 +20,7 @@ router.get('/:id', (req, res, next) => {
 				});
 		})
 		.catch((err) => {
-			console.log(err);
+			next(err);
 		});
 });
 
@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
 			res.json({ student });
 		})
 		.catch((err) => {
-			console.error(err);
+			next(err);
 		});
 });
 
@@ -47,11 +47,11 @@ router.delete('/:id', (req, res, next) => {
 			id: req.params.id,
 		},
 	})
-		.then((student) => {
-			res.status(200);
+		.then((id) => {
+			res.status(200).send(`Student with id: ${id} successfully deleted`);
 		})
 		.catch((err) => {
-			console.error(err);
+			next(err);
 		});
 });
 // Export our router, so that it can be imported to construct our apiRouter;

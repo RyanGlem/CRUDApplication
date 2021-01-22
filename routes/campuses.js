@@ -6,7 +6,7 @@ const { Campus } = require('../database/models');
 router.get('/', (req, res, next) => {
 	Campus.findAll()
 		.then((students) => res.json(students))
-		.catch((err) => console.error(err));
+		.catch((err) => next(err));
 });
 
 router.get('/:id', (req, res, next) => {
@@ -22,7 +22,7 @@ router.get('/:id', (req, res, next) => {
 				});
 		})
 		.catch((err) => {
-			console.log(err);
+			next(err);
 		});
 });
 
@@ -37,7 +37,7 @@ router.post('/', (req, res, next) => {
 			res.json(student);
 		})
 		.catch((err) => {
-			console.log(err);
+			next(err);
 		});
 });
 
@@ -51,7 +51,7 @@ router.delete('/:id', (req, res, next) => {
 			res.status(200);
 		})
 		.catch((err) => {
-			console.log(err);
+			next(err);
 		});
 });
 module.exports = router;
