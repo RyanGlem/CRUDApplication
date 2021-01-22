@@ -37,9 +37,22 @@ router.post('/', (req, res, next) => {
 			res.json({ student });
 		})
 		.catch((err) => {
-			console.log(err);
+			console.error(err);
 		});
 });
 
+router.delete('/:id', (req, res, next) => {
+	Student.destroy({
+		where: {
+			id: req.params.id,
+		},
+	})
+		.then((student) => {
+			res.status(200);
+		})
+		.catch((err) => {
+			console.error(err);
+		});
+});
 // Export our router, so that it can be imported to construct our apiRouter;
 module.exports = router;
