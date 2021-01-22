@@ -1,4 +1,5 @@
 const express = require('express');
+const { set } = require('../database');
 const router = express.Router();
 const { Campus } = require('../database/models');
 
@@ -30,10 +31,24 @@ router.post('/', (req, res, next) => {
 		name: req.body.name,
 		imageUrl: req.body.imageUrl,
 		address: req.body.address,
-		description: req.body.address,
+		description: req.body.description,
 	})
 		.then((student) => {
 			res.json(student);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
+router.delete('/:id', (req, res, next) => {
+	Campus.destroy({
+		where: {
+			id: req.params.id,
+		},
+	})
+		.then((campus) => {
+			res.status(200);
 		})
 		.catch((err) => {
 			console.log(err);
