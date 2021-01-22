@@ -25,4 +25,18 @@ router.get('/:id', (req, res, next) => {
 		});
 });
 
+router.post('/', (req, res, next) => {
+	Campus.create({
+		name: req.body.name,
+		imageUrl: req.body.imageUrl,
+		address: req.body.address,
+		description: req.body.address,
+	})
+		.then((student) => {
+			res.json(student);
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
 module.exports = router;
