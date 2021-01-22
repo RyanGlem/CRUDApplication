@@ -24,5 +24,22 @@ router.get('/:id', (req, res, next) => {
 		});
 });
 
+router.post('/', (req, res, next) => {
+	Student.create({
+		firstName: req.body.firstName,
+		lastName: req.body.lastName,
+		email: req.body.email,
+		imageUrl: req.body.imageUrl,
+		gpa: parseFloat(req.body.gpa),
+		campusId: req.body.campusId,
+	})
+		.then((student) => {
+			res.json({ student });
+		})
+		.catch((err) => {
+			console.log(err);
+		});
+});
+
 // Export our router, so that it can be imported to construct our apiRouter;
 module.exports = router;
