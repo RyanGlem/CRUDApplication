@@ -42,17 +42,21 @@ router.post('/', (req, res, next) => {
 });
 
 router.delete('/:id', (req, res, next) => {
-	Student.destroy({
-		where: {
-			id: req.params.id,
-		},
-	})
-		.then((id) => {
-			res.status(200).send(`Student with id: ${id} successfully deleted`);
+	Student.findByPk(req.params.id)
+		.then((student) => {
+			Student.destroy({
+				where: {
+					id: req.params.id,
+				},
+			})
+				.then((id) => {
+					res.json(student);
+				})
+				.catch((err) => {
+					next(err);
+				});
 		})
-		.catch((err) => {
-			next(err);
-		});
+		.catch((err) => next(err));
 });
 // Export our router, so that it can be imported to construct our apiRouter;
 module.exports = router;
